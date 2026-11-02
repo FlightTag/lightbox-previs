@@ -1,7 +1,7 @@
 {
   "name": "lightbox-previs",
   "version": "0.1.0",
-  "description": "LightBox Previs — open-standards (MVR/GDTF, sACN) 3D lighting visualiser",
+  "description": "LightBox Previs \u2014 open-standards (MVR/GDTF, sACN) 3D lighting visualiser",
   "main": "src/main.js",
   "author": "LightBox Show & Lighting Design Studio",
   "license": "MIT",
@@ -21,15 +21,18 @@
   "build": {
     "appId": "studio.light-box.previs",
     "productName": "LightBox Previs",
-    "copyright": "© LightBox Show & Lighting Design Studio",
+    "copyright": "\u00a9 LightBox Show & Lighting Design Studio",
     "files": [
       "src/**/*",
-      "package.json"
+      "package.json",
+      "node_modules/three/examples/jsm/**"
     ],
     "asar": false,
     "mac": {
       "category": "public.app-category.graphics-design",
-      "target": ["dmg"],
+      "target": [
+        "dmg"
+      ],
       "artifactName": "LightBox-Previs-${version}-${arch}.${ext}",
       "hardenedRuntime": false,
       "gatekeeperAssess": false,
@@ -37,13 +40,29 @@
     },
     "dmg": {
       "contents": [
-        { "x": 130, "y": 180 },
-        { "x": 410, "y": 180, "type": "link", "path": "/Applications" }
+        {
+          "x": 130,
+          "y": 180
+        },
+        {
+          "x": 410,
+          "y": 180,
+          "type": "link",
+          "path": "/Applications"
+        }
       ]
     },
     "fileAssociations": [
-      { "ext": "mvr", "name": "My Virtual Rig", "role": "Viewer" },
-      { "ext": "gdtf", "name": "GDTF fixture", "role": "Viewer" }
+      {
+        "ext": "mvr",
+        "name": "My Virtual Rig",
+        "role": "Viewer"
+      },
+      {
+        "ext": "gdtf",
+        "name": "GDTF fixture",
+        "role": "Viewer"
+      }
     ]
   }
 }

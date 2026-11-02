@@ -37,6 +37,8 @@ jobs:
       - name: Build DMGs (arm64 + x64)
         run: npx electron-builder --mac dmg --arm64 --x64 --publish never
       - run: ls -la dist/*.dmg
+      - name: Verify Three.js addons are packaged
+        run: test -f "dist/mac-arm64/LightBox Previs.app/Contents/Resources/app/node_modules/three/examples/jsm/controls/OrbitControls.js"
       - uses: actions/upload-artifact@v4
         with:
           name: LightBox-Previs-mac

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>LightBox Previs</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; script-src 'self' 'sha256-NsYD1adzQgbN9IclgJMFViQYpCcHPBk1y2fEtrpw6t8='" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../node_modules/three/build/three.module.js",
+        "three/addons/": "../../node_modules/three/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <aside id="panel">
+    <header class="drag">
+      <div class="brand"><span class="mono">LTLX</span> Previs</div>
+      <div class="sub">MVR · GDTF · sACN</div>
+    </header>
+
+    <section class="actions">
+      <button id="btnOpenMvr" title="⌘O">Open MVR…</button>
+      <button id="btnOpenGdtf" title="⌘G">Load GDTF…</button>
+      <button id="btnDemo" title="⌘D">Demo rig</button>
+    </section>
+
+    <section class="card">
+      <div class="row between">
+        <h3>sACN input</h3>
+        <span id="sacnPkts" class="muted mono">0 pkt</span>
+      </div>
+      <div id="universes" class="universes"></div>
+      <div class="row gap">
+        <input id="uniInput" type="number" min="1" max="63999" value="2" />
+        <button id="btnListen" class="small">Listen</button>
+        <label class="toggle"><input id="demoDmx" type="checkbox" /> Demo DMX</label>
+      </div>
+      <div class="hint">grandMA3: Menu → In &amp; Out → DMX Protocols → sACN, enable output on the universes patched here. Same network as this Mac.</div>
+    </section>
+
+    <section class="card">
+      <div class="row between">
+        <h3>Rig</h3>
+        <span id="rigName" class="muted">no rig loaded</span>
+      </div>
+      <div id="rigWarn" class="warn" hidden></div>
+      <table id="patch">
+        <thead><tr><th>ID</th><th>Fixture</th><th>Mode</th><th>Patch</th><th>Dim</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h3>View</h3>
+      <label class="toggle"><input id="floorLight" type="checkbox" checked /> Floor lighting (spot lights)</label>
+      <label class="toggle"><input id="showGrid" type="checkbox" checked /> Grid</label>
+      <label class="row gap">Haze <input id="haze" type="range" min="0" max="1" step="0.01" value="0.55" /></label>
+      <div class="hint">Drag to orbit · scroll to zoom · right-drag to pan · F to frame rig · drop an .mvr or .gdtf onto the window</div>
+    </section>
+
+    <section id="log" class="log"></section>
+  </aside>
+
+  <main id="viewport">
+    <canvas id="gl"></canvas>
+    <div id="hud" class="mono"></div>
+  </main>
+
+  <dialog id="patchDlg">
+    <form method="dialog">
+      <h3>Patch fixtures</h3>
+      <p id="patchDlgTitle" class="muted"></p>
+      <p>How many to hang in a line on a truss at 7 m, patched from 1.1?</p>
+      <input id="patchCount" type="number" min="1" max="200" value="8" />
+      <div class="row gap">
+        <button value="cancel">Cancel</button>
+        <button value="ok">Patch</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="renderer.js"></script>
+</body>
+</html>
